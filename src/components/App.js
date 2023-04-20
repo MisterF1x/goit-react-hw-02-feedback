@@ -5,7 +5,6 @@ import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/Statistics';
 import { Component } from 'react';
 import { Notification } from './Notification/Notification';
-import { IconsOptions } from './constant';
 
 export class App extends Component {
   state = {
@@ -14,9 +13,9 @@ export class App extends Component {
     bad: 0,
   };
 
-  leaveFeedback = name => {
+  leaveFeedback = key => {
     this.setState(pervState => ({
-      [name]: pervState[name] + 1,
+      [key]: pervState[key] + 1,
     }));
   };
 
@@ -33,7 +32,7 @@ export class App extends Component {
     return (
       <Layout>
         <FeedbackOptions
-          options={IconsOptions}
+          options={Object.keys(this.state)}
           onLeaveFeedback={this.leaveFeedback}
         ></FeedbackOptions>
         {!total ? (

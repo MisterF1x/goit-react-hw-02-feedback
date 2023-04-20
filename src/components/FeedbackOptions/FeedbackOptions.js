@@ -3,23 +3,27 @@ import {
   FedbackOptionWrapper,
 } from './FeedbackOptions.styled';
 import { Section } from 'components/Section/Section';
+import { BtnIcon } from 'components/Utils.js/Utils';
 import PropTypes from 'prop-types';
 
 export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <Section title="Please leave feedback">
       <FedbackOptionWrapper>
-        {options.map(({ icon, title, color }, index) => (
-          <FedbackOptionBtn
-            onClick={() => onLeaveFeedback(title)}
-            key={index}
-            style={{ color: color }}
-            title={title}
-            type="button"
-          >
-            {icon}
-          </FedbackOptionBtn>
-        ))}
+        {options.map((option, index) => {
+          const icon = BtnIcon(option);
+          return (
+            <FedbackOptionBtn
+              onClick={() => onLeaveFeedback(option)}
+              key={index}
+              iconColor={option}
+              title={option}
+              type="button"
+            >
+              {icon}
+            </FedbackOptionBtn>
+          );
+        })}
       </FedbackOptionWrapper>
     </Section>
   );
@@ -27,11 +31,6 @@ export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
 
 FeedbackOptions.propTypes = {
   onLeaveFeedback: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      icon: PropTypes.object.isRequired,
-      title: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  options: PropTypes.arrayOf(PropTypes.oneOf(['good', 'neutral', 'bad']))
+    .isRequired,
 };
