@@ -10,12 +10,12 @@ export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <Section title="Please leave feedback">
       <FedbackOptionWrapper>
-        {options.map((option, index) => {
+        {options.map(option => {
           const icon = BtnIcon(option);
           return (
             <FedbackOptionBtn
               onClick={() => onLeaveFeedback(option)}
-              key={index}
+              key={option}
               iconColor={option}
               title={option}
               type="button"
@@ -31,6 +31,5 @@ export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
 
 FeedbackOptions.propTypes = {
   onLeaveFeedback: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.oneOf(['good', 'neutral', 'bad']))
-    .isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
